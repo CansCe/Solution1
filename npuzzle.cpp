@@ -10,7 +10,7 @@ struct State{
     int x,y;
     Board board;
     vector<char> history_actions;
-
+    int g;
 
     vector<char> getAction(){
         // {'l','r','u','d'}
@@ -57,12 +57,31 @@ struct State{
     }
 };
 
+int getH(State s,State goal){
+    int h = 0;
+    for (int i = 0; i < N; i++){
+        for (int j = 0; j < N; j++){
+            if (s.board[i][j] != goal.board[i][j])
+                h++;
+        }
+    }
+    return h;
+}
+
 State taoStateCon(State s, char action){
     State stateCon = s; // tao copy
     stateCon.do_action(action); // perform action len state
+    stateCon.g = s.g + 1;
     return stateCon;
 }
-
+void inset_to_queue(State& state, vector<State>& pending_states){
+    int i = 0;
+    for (i = 0; i < pending_states.size(); i++){
+        if (pending_states[i].g + getH(pending_states[i], state) > state.g + getH(state, state))
+            break;
+    }
+    pending_states.insert(pending_states.begin() + i, state);
+}
 bool found_in_memory(unordered_set<string>& memory, State& con){
     string s = con.getString();
     if (memory.find(s) == memory.end())
