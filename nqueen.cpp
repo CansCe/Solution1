@@ -56,7 +56,7 @@ void solve(Board& b,int numberOfQueens){
     }
     for(int i=0;i<N;i++){
         for(int j=0;j<N;j++){
-            if(check1(b,i,j)){
+            if(check(b,i,j)){
                 b[i][j]=1;
                 numberOfQueens-=1;
                 solve(b,numberOfQueens);
