@@ -1,6 +1,4 @@
-#include<iostream>
-#include<utility>
-#include<vector>
+#include<bits/stdc++.h>
 #define N 6
 
 
@@ -85,6 +83,8 @@ bool solve (Board& b,int col){
     return false;
 }
 bool solveNQ(){
+
+    
     Board b(N,vector<int>(N,0));
     if(solve(b,0)==false){
         cout<<"No solution"<<endl;
@@ -94,6 +94,11 @@ bool solveNQ(){
     return true;
 }
 int main(){
+    clock_t s,e;
+    s = clock();
     solveNQ();
+    e = clock();
+    cout<<"Time taken: "<<(double)(e-s)/CLOCKS_PER_SEC<<endl;
+    
     return 0;
 }
