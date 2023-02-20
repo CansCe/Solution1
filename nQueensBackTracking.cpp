@@ -2,7 +2,6 @@
 
 using namespace std;
 
-#define n 6
 
 typedef vector<vector<string>> Board;
 
@@ -27,10 +26,11 @@ bool safe(int row,int col,Board& b){
     }
     return true;
 }
-
+int Count = 0;
 void recS(Board b,int row){
     if(row==b.size()){
         inBoard(b);
+        Count +=1;
         cout<<endl;
         return;
     }
@@ -45,6 +45,7 @@ void recS(Board b,int row){
 
 Board solveNQueens(int A) {
     Board b;
+    
     for(int i=0;i<A;i++){
         vector<string> v;
         for(int j=0;j<A;j++){
@@ -53,15 +54,21 @@ Board solveNQueens(int A) {
         b.push_back(v);
     }
     recS(b,0);
+    
     return b;
 }
 int main(){
-    
+    int n;
+    cin>>n;
     clock_t  s,e;
+    
     s = clock();
     
     Board b = solveNQueens(n);
+    
     e=clock();
+   
     cout<<"Time taken: "<<(double)(e-s)/CLOCKS_PER_SEC<<endl;
+    cout<<"Total solutions: "<<Count<<endl;
     return 0;
 }
